@@ -8,11 +8,12 @@ int main()
     mt19937 engine{seed()};
     uniform_int_distribution<> dis{1, 10};
 
-    constexpr int questionCount{3};
+    int questionCount{0};
 
     int correctAnswers{0};
+    bool askMore{true};
 
-    for (int i = 0; i < questionCount; i++)
+    while (askMore)
     {
         int a{dis(engine)};
         int b{dis(engine)};
@@ -31,8 +32,14 @@ int main()
         {
             cout << "Incorrect!\n";
         }
+        questionCount++;
+        cout << "Continue (Y/N)?\n";
+        char ch{};
+        cin >> ch;
+        if(ch == 'n' || ch == 'N'){
+            askMore = false;
+        }
     }
 
     cout << "You got " << correctAnswers << "/" << questionCount << " correct answers\n";
-    
 }
